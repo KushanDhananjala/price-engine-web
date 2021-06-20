@@ -1,0 +1,54 @@
+<div class="container-fluid novalidate">
+  <div class="row">
+    <div class="col-md-12">
+      <!--Card-->
+      <mdb-card [cascade]="true" [narrower]="true" class="mt-5">
+        <div class="view gradient-card-header blue darken-2">
+          <h4 class="h4-responsive text-white">Price Calculator</h4>
+        </div>
+        <!--Card content-->
+        <mdb-card-body>
+          <form (ngSubmit)="calculatePrice()" [formGroup]="formCalculate" class="form">
+            <div class="row">
+              <mat-form-field class="form-element col-md-4">
+                <mat-select formControlName="product" placeholder="Select product">
+                  <mat-option *ngFor="let product of products"
+                              [value]="product.id">{{ product.productName }}</mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="!formCalculate.controls['product'].valid && formCalculate.controls['product'].touched">
+                  Product is required
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-element col-md-4">
+                <input formControlName="cartons" matInput min="0" placeholder="No. of cartons" type="number">
+                <span matSuffix>Cartons</span>
+                <mat-error
+                  *ngIf="!formCalculate.controls['cartons'].valid && formCalculate.controls['cartons'].touched">
+                  Invalid quantity
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-element col-md-4">
+                <input formControlName="units" matInput min="0" placeholder="No. of units" type="number">
+                <span matSuffix>Units</span>
+                <mat-error *ngIf="!formCalculate.controls['units'].valid && formCalculate.controls['units'].touched">
+                  Invalid quantity
+                </mat-error>
+              </mat-form-field>
+
+              <div class="form-element ml-2">
+                <button [disabled]="!formCalculate.valid" class="button" color="accent" mat-raised-button
+                        type="submit">Calculate Price
+                </button>
+              </div>
+            </div>
+          </form>
+        </mdb-card-body>
+        <!--/.Card content-->
+      </mdb-card>
+      <!--/.Card-->
+    </div>
+  </div>
+</div>

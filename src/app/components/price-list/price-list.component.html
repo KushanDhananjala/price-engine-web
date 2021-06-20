@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <!--Card-->
+      <mdb-card [cascade]="true" [narrower]="true" class="mt-5">
+        <div class="view gradient-card-header blue darken-2">
+          <h4 class="h4-responsive text-white">Price List</h4>
+        </div>
+        <!--Card content-->
+        <mdb-card-body>
+          <mat-form-field>
+            <mat-label>Select a Product</mat-label>
+            <mat-select (selectionChange)="loadProductPrices()" [(value)]="selectedProductId">
+              <mat-option *ngFor="let product of products"
+                          value="{{ product.id }}">{{ product.productName }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!--Product detail-->
+          <div *ngIf="null != selectedProduct" class="mat-elevation-z8 crd-product-detail">
+            <mat-card>
+              <h4 class="ml-2 mb-2">Product Details</h4>
+              <div class="col-md-12">Product Name : {{ selectedProduct.productName }}</div>
+              <div class="col-md-12">Price per Carton : {{ selectedProduct.price | currency: 'LKR'}}</div>
+              <div class="col-md-12">Units per Carton : {{ selectedProduct.units }}</div>
+              <div class="col-md-12">
+                <span *ngIf="selectedProduct.label == 'RARE'" class="badge badge-danger">
+                  {{ selectedProduct.label}} product
+                </span>
+              </div>
+            </mat-card>
+          </div>
+          <!--/.Product detail-->
+          <br>
+
+          <!--Product price list-->
+          <div *ngIf="null != selectedProduct" class="mat-elevation-z8">
+            <table [dataSource]="dataSource" mat-table>
+              <!-- Units Column -->
+              <ng-container matColumnDef="units">
+                <th *matHeaderCellDef mat-header-cell> Quantity</th>
+                <td *matCellDef="let element" [ngClass]="element.carton? 'carton-cell': 'non-carton-cell'" mat-cell>
+                  {{element.units}} <span *ngIf="element.carton" class="badge badge-primary">
+                  No. of cartons : {{element.cartonCount}}</span>
+                </td>
+              </ng-container>
+
+              <!-- Price Column -->
+              <ng-container matColumnDef="price">
+                <th *matHeaderCellDef mat-header-cell> Price</th>
+                <td *matCellDef="let element" [ngClass]="element.carton? 'carton-cell': 'non-carton-cell'" mat-cell>
+                  {{element.price | currency: 'LKR'}}
+                </td>
+              </ng-container>
+
+              <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+              <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" class="mb-5" showFirstLastButtons></mat-paginator>
+          </div>
+          <!--/.Product price list-->
+        </mdb-card-body>
+        <!--/.Card content-->
+      </mdb-card>
+      <!--/.Card-->
+    </div>
+  </div>
+</div>

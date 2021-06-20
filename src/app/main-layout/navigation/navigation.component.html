@@ -1,0 +1,31 @@
+<!--Main Navigation-->
+<header>
+
+  <!-- Sidebar -->
+  <div class="sidebar-fixed position-fixed">
+
+    <a class="logo-wrapper waves-effect">
+
+    </a>
+
+    <div class="list-group list-group-flush">
+      <a class="list-group-item list-group-item-action waves-effect" routerLink="price-list" routerLinkActive="active">
+        <mdb-icon class="mr-3" fas icon="file-invoice-dollar"></mdb-icon>
+        Price List</a>
+      <a class="list-group-item list-group-item-action waves-effect" routerLink="price-calculator"
+         routerLinkActive="active">
+        <mdb-icon class="mr-3" fas icon="calculator"></mdb-icon>
+        Calculator</a>
+    </div>
+
+  </div>
+  <!-- Sidebar -->
+
+  <!--Navbar-->
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-light white" [containerInside]="false">
+    <h2 id="main-title">Price Engine</h2>
+  </mdb-navbar>
+  <!--/.Navbar-->
+
+</header>
+<!--Main Navigation-->
